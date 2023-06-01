@@ -19,5 +19,6 @@ from django.urls import path
 from articleAgregator import view
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', view.index, name='mainpage')
+    path('', view.index, name='mainpage'), 
+    path('addarticle', view.add_article, name='addarticle'),
 ]
