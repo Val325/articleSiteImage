@@ -12,8 +12,10 @@
 {% include "header.html" %}
 	<h1>This is a Heading</h1>
 	<p>This is a paragraph.</p>
+	
 	{% for art_pos in article_posts %}
-	<div>author: {{art_pos.author}} text: {{ art_pos.text }}</div>
+	<div>author: {{art_pos.author}} text: {{ art_pos.text }}  images path: {{ art_pos.images }}<</div>
+	<img src="/articleAgregator/images/{{art_pos.images}}" alt="Girl in a jacket"> 
         {% endfor %}
 </body>
 </html> 

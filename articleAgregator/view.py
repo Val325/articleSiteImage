@@ -8,6 +8,7 @@ def index(request):
     print("Article: ", post_article)
     for post_art in post_article:
         print("post_art: ", post_art.id)
+        print("image: ", post_art.images)
 
 
     return TemplateResponse(request,"main.html", {"article_posts": post_article})
