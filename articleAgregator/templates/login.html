@@ -1,0 +1,21 @@
+ <!DOCTYPE html>
+ {% load static %}
+<html>
+<head>
+<title>login</title>
+<link rel="stylesheet" href="{% static "styles.css" %}" />
+</head>
+<body>
+{% include "header.html" %}
+	<div class="register">
+	<form method="POST" novalidate>
+		{% csrf_token %}
+		<table>
+		<h2>login</h2>
+		{{ form }}		
+		</table>
+		<input type="submit" value="Register" />
+	</form>
+	</div>
+</body>
+</html> 
