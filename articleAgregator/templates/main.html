@@ -10,11 +10,10 @@
 </head>
 <body>
 {% include "header.html" %}
-	<h1>This is a Heading</h1>
-	<p>This is a paragraph.</p>
+	<h1>Images</h1>
 	<div class="mainlent">
 		{% for art_pos in article_posts %}
-			<div>author: {{art_pos.author}} text: {{ art_pos.text }}  images path: {{ art_pos.images }}<</div>
+		<div>author: {{art_pos.author}}</ br> <p>{{ art_pos.text }}</p></div>
 			<img src="/articleAgregator/images/{{art_pos.images}}" width="500" height="600"> 
         	{% endfor %}
 	</div>

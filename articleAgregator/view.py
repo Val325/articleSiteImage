@@ -6,10 +6,20 @@ from .models import Article
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm
+from django.contrib.auth.decorators import login_required
+
 def index(request):
     post_article = Article.objects.all()
     users = User.objects.all()
     print("Article: ", post_article)
+    auth = None
+    try:
+        print("isAuth?: ", request.session['auth'])
+        auth = request.session['auth']
+        print("Username: ", request.session['user'])
+    except:
+        print("User not authenticate")
+
     for post_art in post_article:
         print("post_art: ", post_art.id)
         print("image: ", post_art.images)
@@ -17,9 +27,17 @@ def index(request):
         print("username: ", us.username)
         print("password: ", us.password)
 
-    return TemplateResponse(request,"main.html", {"article_posts": post_article})
+    return TemplateResponse(request,"main.html", {"article_posts": post_article, "auth": auth})
 
+@login_required(login_url='/') #redirect when user is not logged in
 def add_article(request):
+ 
+    auth = None
+    try:
+        auth = request.session['auth']
+    except:
+        return redirect('/login')
+
     if request.method == "POST":
         article_form = send_article_form(request.POST, request.FILES)
         text = request.POST.get("text")
@@ -32,7 +50,7 @@ def add_article(request):
             artice_post.save()
     else:
         article_form = send_article_form()
-    return TemplateResponse(request,"addarticle.html", {"form": article_form})
+    return TemplateResponse(request,"addarticle.html", {"form": article_form, "auth": auth})
 
 def sign_up(request):
     if request.method == 'GET':
@@ -43,7 +61,6 @@ def sign_up(request):
         form = RegisterForm(request.POST) 
         if form.is_valid():
             user = form.save(commit=False)
-#            user.username = user.username.lower()
             user.save()
             
             login(request, user)
@@ -52,7 +69,8 @@ def sign_up(request):
             return render(request, 'register.html', {'form': form})
 
 def sign_out(request):
-    pass
+    logout(request)
+    return redirect('/')
 
 def sign_in(request):
 
@@ -71,6 +89,8 @@ def sign_in(request):
                 login(request, user)
                 print("username: ", username)
                 print("password: ", password)
+                request.session['auth'] = True
+                request.session['user'] = username
                 return redirect('/')
             print("Not auth") 
         
