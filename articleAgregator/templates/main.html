@@ -13,8 +13,10 @@
 	<h1>Images</h1>
 	<div class="mainlent">
 		{% for art_pos in article_posts %}
-		<div>author: {{art_pos.author}}</ br> <p>{{ art_pos.text }}</p></div>
+		<div class="post">
+		<div>author: {{art_pos.user}}</ br> <p>{{ art_pos.text }}</p></div>
 			<img src="/articleAgregator/images/{{art_pos.images}}" width="500" height="600"> 
+		</div>
         	{% endfor %}
 	</div>
 </body>

@@ -4,8 +4,11 @@
 	<a href="/">Main</a>
 	{% if auth %}
 		<a href="/addarticle">Add article</a>
-	{% endif %}	
+	{% else %}
+
+		
 	<a href="/register">Register</a>
 	<a href="/login">Login</a>
+	{% endif %}
 </header>
 

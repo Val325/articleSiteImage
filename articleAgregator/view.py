@@ -23,6 +23,7 @@ def index(request):
     for post_art in post_article:
         print("post_art: ", post_art.id)
         print("image: ", post_art.images)
+        print("user: ", post_art.user)
     for us in users:
         print("username: ", us.username)
         print("password: ", us.password)
@@ -40,13 +41,17 @@ def add_article(request):
 
     if request.method == "POST":
         article_form = send_article_form(request.POST, request.FILES)
+        
+
         text = request.POST.get("text")
         author = request.POST.get("author")
+        
         if article_form.is_valid():   
             print("author: ", author)
             print("text: ", text)
             artice_post = Article(text=text, author=author)
-            artice_post = article_form
+            artice_post = article_form.save(commit=False)
+            artice_post.user = request.user
             artice_post.save()
     else:
         article_form = send_article_form()
@@ -61,6 +66,7 @@ def sign_up(request):
         form = RegisterForm(request.POST) 
         if form.is_valid():
             user = form.save(commit=False)
+            
             user.save()
             
             login(request, user)
