@@ -28,6 +28,8 @@ urlpatterns = [
     path('logout/', view.sign_out, name='logout'),
     path('login/', view.sign_in, name='login'),
     path('register/', view.sign_up, name='register'),
+    path('api/article', view.ArticleList, name='api'),
+    path('api/article/<int:pk>/', view.ArticleDetail, name='apiName'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

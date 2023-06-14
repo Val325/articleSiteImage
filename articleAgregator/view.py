@@ -8,6 +8,15 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
 
+from rest_framework.decorators import api_view
+from rest_framework import  status
+from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+from .serializers import ArticleSerializer
+
 def index(request):
     post_article = Article.objects.all()
     users = User.objects.all()
@@ -102,3 +111,47 @@ def sign_in(request):
         
         return render(request,'login.html',{'form': form})
 
+@api_view(['GET', 'POST'])
+def ArticleList(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        snippets = Article.objects.all()
+        serializer = ArticleSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def ArticleDetail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        snippet = Article.objects.get(pk=pk)
+    except Snippet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ArticleSerializer(snippet)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ArticleSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+#class ArticleDetail(generics.RetrieveAPIView):
+#    queryset = Article.objects.all()
+#    serializer_class = ArticleSerializer
