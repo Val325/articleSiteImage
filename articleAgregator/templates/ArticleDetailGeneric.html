@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+
+
+<title>Page Title</title>
+<link rel="stylesheet" href="{% static "styles.css" %}" />
+</head>
+<body>
+{% include "header.html" %}
+       <h1>Images</h1>
+       <div class="mainlent">
+	       <h1>{{ object.author }}</h1>
+ 		<p>{{ object.text }}</p>
+       </div>
+</body>

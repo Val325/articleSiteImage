@@ -30,6 +30,10 @@ urlpatterns = [
     path('register/', view.sign_up, name='register'),
     path('api/article', view.ArticleList, name='api'),
     path('api/article/<int:pk>/', view.ArticleDetail, name='apiName'),
+    path('listDetail/', view.ArticleListGeneric.as_view()),
+    path('detail/<pk>/', view.ArticleDetailView.as_view()),
+    path('update/<pk>/', view.ArticleUpdateView.as_view()),
+    path('delete/<pk>/', view.ArticleDeleteView.as_view()),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

@@ -7,6 +7,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework.decorators import api_view
 from rest_framework import  status
@@ -155,3 +160,43 @@ def ArticleDetail(request, pk):
 #class ArticleDetail(generics.RetrieveAPIView):
 #    queryset = Article.objects.all()
 #    serializer_class = ArticleSerializer
+
+class ArticleListGeneric(LoginRequiredMixin,ListView):
+    login_url = '/login/'
+    #raise_exception = True
+    redirect_field_name = '/login/'
+    template_name = "ArticleListGeneric.html" 
+    # specify the model for list view
+    model = Article
+
+class ArticleDetailView(DetailView):
+    template_name = "ArticleDetailGeneric.html" 
+    # specify the model to use
+    model = Article
+
+class ArticleUpdateView(UpdateView):
+    template_name = "ArticleUpdate.html" 
+    # specify the model you want to use
+    model = Article
+ 
+    # specify the fields
+    fields = [
+        "user",
+        "text",
+        "author"
+    ]
+ 
+    # can specify success url
+    # url to redirect after successfully
+    # updating details
+    success_url ="/"
+
+class ArticleDeleteView(DeleteView):
+    template_name = "ArticleDelete.html" 
+    # specify the model you want to use
+    model = Article
+     
+    # can specify success url
+    # url to redirect after successfully
+    # deleting object
+    success_url ="/"
