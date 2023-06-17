@@ -7,3 +7,5 @@ class Article(models.Model):
     text = models.CharField(max_length=500)
     author = models.CharField(max_length=50)
     images = models.ImageField(upload_to='images/') 
+    likes = models.ManyToManyField(User, blank=True, related_name='likes')
+

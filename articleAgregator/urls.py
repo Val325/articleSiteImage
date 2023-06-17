@@ -30,6 +30,7 @@ urlpatterns = [
     path('register/', view.sign_up, name='register'),
     path('api/article', view.ArticleList, name='api'),
     path('api/article/<int:pk>/', view.ArticleDetail, name='apiName'),
+    path('like/<int:pk>/', view.like, name='like'),
     path('listDetail/', view.ArticleListGeneric.as_view()),
     path('detail/<pk>/', view.ArticleDetailView.as_view()),
     path('update/<pk>/', view.ArticleUpdateView.as_view()),

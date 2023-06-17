@@ -12,6 +12,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 
 from rest_framework.decorators import api_view
 from rest_framework import  status
@@ -90,6 +91,16 @@ def sign_up(request):
 
 def sign_out(request):
     logout(request)
+    return redirect('/')
+
+def like(request, pk):
+    post = get_object_or_404(Article, id=pk)
+    if request.method == 'POST':
+        if post.likes.filter(id=request.user.id).exists():
+            return redirect('/')
+        else:
+            post.likes.add(request.user)
+    print("count likes: ", post.likes.count())
     return redirect('/')
 
 def sign_in(request):

@@ -130,3 +130,5 @@ MEDIA_URL = 'articleAgregator/images/'
   
 # Path where media is stored  
 MEDIA_ROOT = os.path.join(BASE_DIR, 'articleAgregator/images')  
+
+APPEND_SLASH=False
