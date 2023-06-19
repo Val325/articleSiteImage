@@ -5,6 +5,9 @@
 header {
 	background-color: coral;
 }
+.auth > div > span {
+  color:white;
+}
 a:link {
   text-decoration: none;
   color:white;
@@ -74,6 +77,10 @@ a:active {
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
+
+
+  margin: 20px;
+
 }
 
 .btn:focus:not(:focus-visible):not(.focus-visible) {
@@ -101,9 +108,16 @@ a:active {
   background-color: #298e46;
   box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
+.auth {
+  display: flex;
+  justify-content: space-between;
+}
 .post{
-  
-  border-top-style: solid;
+  padding-top: 20px;
   border-bottom-style: solid;
-  border-color: lightgray;
+  border-color: coral;
+  
+}
+.mainName {
+  text-align: center;
 }

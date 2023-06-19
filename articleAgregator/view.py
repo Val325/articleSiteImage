@@ -43,7 +43,7 @@ def index(request):
         print("username: ", us.username)
         print("password: ", us.password)
 
-    return TemplateResponse(request,"main.html", {"article_posts": post_article, "auth": auth})
+    return TemplateResponse(request,"main.html", {"article_posts": post_article, "auth": auth, "user": request.session['user']})
 
 @login_required(login_url='/') #redirect when user is not logged in
 def add_article(request):

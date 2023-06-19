@@ -10,18 +10,20 @@
 </head>
 <body>
 {% include "header.html" %}
-	<h1>Images</h1>
+	<h1 class="mainName">Images</h1>
 	<div class="mainlent">
 		{% for art_pos in article_posts %}
 		<div class="post">
 		<div>author: {{art_pos.user}}</ br> <p>{{ art_pos.text }}</p></div>
-			<img src="/articleAgregator/images/{{art_pos.images}}" width="500" height="600"> 
-		</div>
+			<img src="/articleAgregator/images/{{art_pos.images}}" width="500" height="600">
 		<form action="/like/{{art_pos.id}}/" method="POST" novalidate >
+	
 			{% csrf_token %}
 			<span>likes: {{art_pos.likes.count}}</span>	
 			<input type="submit" value="like!" class="btn" />
 		</form>
+		</div>
+	
         	{% endfor %}
 	</div>
 </body>

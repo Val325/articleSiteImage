@@ -1,14 +1,22 @@
  
 <header>
 	<!--	<h1>This is header</h1>-->
-	<a href="/">Main</a>
 	{% if auth %}
-		<a href="/addarticle">Add article</a>
+	<div class="auth">
+		<div>
+			<a href="/">Main</a>
+			<span>{{ user }}</span>
+			<a href="/addarticle">Add post</a>
+		</div>
+		<div>
+			<a href="/logout/">logout</a>
+		</div>
+	</div>
 	{% else %}
 
-		
-	<a href="/register">Register</a>
-	<a href="/login">Login</a>
+	<a href="/">Main</a>	
+	<a href="/register/">Register</a>
+	<a href="/login/">Login</a>
 	{% endif %}
 </header>
 
