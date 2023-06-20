@@ -4,7 +4,7 @@
 
 Small clone instagram 
 
-✓ system like \n
+✓ system like <hr>
 ✓ system registration \n
 ✓ system login \n 
 ✓ upload images \n 
